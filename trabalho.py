@@ -3,6 +3,9 @@ import skfuzzy as fuzz
 from skfuzzy import control as ctrl
 
 # Cria as variáveis do problema
+# Problema: A quantidade de ração e a oferta de água as aves, influência o seu crescimento.
+## Variaveis de entrada (Quantidade de ração(qtdracao) e Quantidade de água (qtdagua))
+# Variável de saída (Crescimento da Ave)
 qtdracao = ctrl.Antecedent(np.arange(0, 11, 1), 'Ração')
 qtdagua = ctrl.Antecedent(np.arange(0, 11, 1), 'água')
 crescimento = ctrl.Consequent(np.arange(0, 26, 1), 'Crescimento')
@@ -37,12 +40,12 @@ rule4 = ctrl.Rule(qtdagua['excelente'] & qtdracao['pouco'], crescimento['baixo']
 rule5 = ctrl.Rule(qtdagua['excelente'] & qtdracao['bom'], crescimento['bom'])
 rule6 = ctrl.Rule(qtdagua['excelente'] & qtdracao['muito'], crescimento['bom'])
 
-#Simulador
+#Simulador de crescimento da ave
 
 crescimento_ctrl = ctrl.ControlSystem([rule1, rule2, rule3, rule4, rule5, rule6])
 crescimento_simulador = ctrl.ControlSystemSimulation(crescimento_ctrl)
 
-# Entrando com alguns valores para qualidade da comida e do serviço
+# Entrando com alguns valores para quantidade de água e ração
 crescimento_simulador.input['Ração'] = 3.5
 crescimento_simulador.input['água'] = 9.4
 
